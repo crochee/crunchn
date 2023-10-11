@@ -12,6 +12,20 @@
 # 
 # Colors are at the top so you can mess with those separately if you like.
 # For the most part I stuck with Dallas's.
+#use extended color palette if available
+if [[ $TERM = (*256color|*rxvt*) ]]; then
+  turquoise="%{${(%):-"%F{81}"}%}"
+  orange="%{${(%):-"%F{166}"}%}"
+  purple="%{${(%):-"%F{135}"}%}"
+  hotpink="%{${(%):-"%F{161}"}%}"
+  limegreen="%{${(%):-"%F{118}"}%}"
+else
+  turquoise="%{${(%):-"%F{cyan}"}%}"
+  orange="%{${(%):-"%F{yellow}"}%}"
+  purple="%{${(%):-"%F{magenta}"}%}"
+  hotpink="%{${(%):-"%F{red}"}%}"
+  limegreen="%{${(%):-"%F{green}"}%}"
+fi
 
 CRUNCH_BRACKET_COLOR="%{$fg[white]%}"
 CRUNCH_TIME_COLOR="%{$fg[yellow]%}"
@@ -30,13 +44,13 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" $CRUNCH_GIT_DIRTY_COLOR✗"
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="yellow"; fi
 
 # Our elements:
-CRUNCH_TIME_="$CRUNCH_BRACKET_COLOR{$CRUNCH_TIME_COLOR%T$CRUNCH_BRACKET_COLOR}%{$reset_color%}"
+CRUNCH_TIME_="$CRUNCH_BRACKET_COLOR"["$CRUNCH_TIME_COLOR%T$CRUNCH_BRACKET_COLOR"]"%{$reset_color%}"
 ZSH_THEME_RUBY_PROMPT_PREFIX="$CRUNCH_BRACKET_COLOR"["$CRUNCH_RVM_COLOR"
 ZSH_THEME_RUBY_PROMPT_SUFFIX="$CRUNCH_BRACKET_COLOR"]"%{$reset_color%}"
 CRUNCH_RVM_='$(ruby_prompt_info)'
-CRUNCH_DIR_="$CRUNCH_DIR_COLOR%~\$(git_prompt_info) "
+CRUNCH_DIR_="$CRUNCH_DIR_COLOR%~\$(git_prompt_info)"
 CRUNCH_PROMPT="$CRUNCH_BRACKET_COLOR
 %{$fg[$NCOLOR]%}➤ %{$reset_color%}"
 
 # Put it all together!
-PROMPT="$CRUNCH_TIME_$CRUNCH_RVM_$CRUNCH_DIR_$CRUNCH_PROMPT%{$reset_color%}"
+PROMPT="${purple}%n%{$reset_color%} $CRUNCH_TIME_$CRUNCH_RVM_$CRUNCH_DIR_$CRUNCH_PROMPT%{$reset_color%}"
