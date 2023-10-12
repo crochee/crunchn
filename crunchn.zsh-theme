@@ -44,7 +44,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" $CRUNCH_GIT_DIRTY_COLOR✗"
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="yellow"; fi
 
 # Our elements:
-CRUNCH_TIME_="$CRUNCH_BRACKET_COLOR"["$CRUNCH_TIME_COLOR%T$CRUNCH_BRACKET_COLOR"]"%{$reset_color%}"
+CRUNCH_TIME_="$CRUNCH_BRACKET_COLOR"{"$CRUNCH_TIME_COLOR%D %*$CRUNCH_BRACKET_COLOR"}"%{$reset_color%} "
 ZSH_THEME_RUBY_PROMPT_PREFIX="$CRUNCH_BRACKET_COLOR"["$CRUNCH_RVM_COLOR"
 ZSH_THEME_RUBY_PROMPT_SUFFIX="$CRUNCH_BRACKET_COLOR"]"%{$reset_color%}"
 CRUNCH_RVM_='$(ruby_prompt_info)'
@@ -53,4 +53,4 @@ CRUNCH_PROMPT="$CRUNCH_BRACKET_COLOR
 %{$fg[$NCOLOR]%}➤ %{$reset_color%}"
 
 # Put it all together!
-PROMPT="${purple}%n%{$reset_color%} $CRUNCH_TIME_$CRUNCH_RVM_$CRUNCH_DIR_$CRUNCH_PROMPT%{$reset_color%}"
+PROMPT="$CRUNCH_TIME_${purple}%n%{$reset_color%}@${orange}%m%{$reset_color%} $CRUNCH_RVM_$CRUNCH_DIR_$CRUNCH_PROMPT%{$reset_color%}"
